@@ -1,0 +1,63 @@
+{{ define "albums/exp.html" }}
+{{ template "base/superHeader.html" . }}
+<body>
+<!-- partial:index.partial.html -->
+<div class="bg-white text-gray-800 p-10">
+
+    <!--Item slider text-->
+    <div class="container col-xxl-8 px-4 py-55">
+        <div class="row flex-lg-row-reverse align-items-left g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img src="{{.album.ImagePath}}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="200"
+                     height="200" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">{{.album.Name}}</h1>
+                <a href="/artists/{{.album.ArtistID}}" class="lead">{{.album.ArtistName}}</a><br><br>
+                <span class="album-rating">{{ .album.Rating }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- song list   -->
+        <div class="mt-10">
+            <!-- song list header -->
+            <div class="flex text-gray-600">
+                <div class="p-2 w-20"></div>
+                <div class="p-2 w-16 "></div>
+                <div class="p-2 w-8 flex-shrink-0">№</div>
+                <div class="p-2 w-full">Название</div>
+                <div class="p-2 w-15 flex-shrink-0 text-right">⏱</div>
+
+            </div>
+
+            {{ range.songs }}
+
+            <div class="flex border-b border-gray-800 hover:bg-gray-300">
+                <div class="p-3 w-15 ">
+                    <form action="/albums/{{.AlbumID}}/songs/edit/{{.ID}}" method="get">
+                    <button type="submit">
+                        <img src="../../static/images/editing.png"/>
+                    </button>
+                    </form>
+                </div>
+                <div class="p-3 w-15">
+                    <form action="/albums/{{.AlbumID}}/songs/delete/{{.ID}}" method="get">
+                    <button type="submit">
+                        <img src="../../static/images/delete.png"/>
+                    </button>
+                    </form>
+                </div>
+                 <div class="p-3 w-8 flex-shrink-0">{{.Number}}️</div>
+                <div class="p-3 w-full">{{.Name}}</div>
+                <div class="p-3 w-15 flex-shrink-0 text-right">{{.Length}}</div>
+
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+{{ template "base/footer.html". }}
+{{ end }}

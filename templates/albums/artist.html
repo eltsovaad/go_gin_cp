@@ -1,11 +1,22 @@
-{{ define "albums/index.html" }}
-{{ template "base/superHeader.html" . }}
+{{ define "albums/artist.html" }}
+{{ template "base/headerArtist.html" . }}
 <body>
-<!-- partial:index.partial.html -->
+
+<!--Item slider text-->
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-left g-5 py-5">
+
+    <h1 class="display-5 fw-bold lh-1">{{.artist.ArtistName}}</h1>
+    <p class="lead">Начало карьеры: {{.artist.Year}}</p>
+
+  </div>
+</div>
+
+<!-- Item slider-->
 <section class="section-products">
   <div class="container">
+
     <div class="row">
-      <!-- Single Product -->
       {{ range .albums }}
       <div class="col-md-6 col-lg-4 col-xl-3">
         <div id="product-1" class="single-product">
@@ -13,8 +24,7 @@
             <span class="rating">{{ .Rating }}</span>
           </div>
           <div class="part-2">
-            <a class="album-name" href="/albums/{{.ID}}">{{ .Name }}</a><br>
-            <a class="artist-name" href="/artists/{{.ArtistID}}">{{ .ArtistName }}</a>
+            <a class="album-name" href="/albums/{{.ID}}">{{ .Name }}</a>
           </div>
         </div>
       </div>
@@ -22,6 +32,7 @@
     </div>
   </div>
 </section>
+
 <!-- partial -->
 {{ template "base/footer.html" . }}
 {{ end }}
