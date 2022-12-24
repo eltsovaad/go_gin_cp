@@ -20,33 +20,7 @@ func SetupDatabase(db *gorm.DB) error {
 		return fmt.Errorf("Error migrating database: %s", err)
 	}
 
-	/*var artists = []model.Artist{
-		{ID: 1, ArtistName: "Red Hot Chili Peppers", Year: 1983},
-		{ID: 2, ArtistName: "Arctic Monkeys", Year: 2002},
-		{ID: 3, ArtistName: "Sting", Year: 1971}}
-	db.Create(&artists)
-
-	var albums = []model.Album{
-		{ID: 1, Name: "Brand New Day", Rating: 4.5, ImagePath: "images/Sting_Brand_New_Day_album_art.jpg", ArtistID: 3},
-		{ID: 2, Name: "Nothing Like the Sun", Rating: 4.7, ImagePath: "images/NLTS.jpg", ArtistID: 3},
-		{ID: 3, Name: "AM", Rating: 4, ImagePath: "images/Arctic_Monkeys_AM_cover.jpg", ArtistID: 2},
-		{ID: 4, Name: "Tranquility Base Hotel & Casino", Rating: 5, ImagePath: "images/Tranquility_Base_Hotel_&_Casino.jpg", ArtistID: 2},
-		{ID: 5, Name: "Californication", Rating: 4.8, ImagePath: "images/Californication.jpg", ArtistID: 1},
-		{ID: 6, Name: "Stadium Arcadium", Rating: 4.5, ImagePath: "images/Stadiumarcadium.jpg", ArtistID: 1},
-		{ID: 7, Name: "The Getaway", Rating: 5, ImagePath: "images/Thegetawayalbum.jpg", ArtistID: 1},
-	}
-	db.Create(&albums)
-	var songs = []model.Song{
-		{ID: 1, Name: "Desert Rose", Length: "4m45s", Number: 2, AlbumID: 1},
-		{ID: 2, Name: "Englishman In New York", Length: "4m45s", Number: 3, AlbumID: 2},
-		{ID: 3, Name: "Arabella", Length: "3m27s", Number: 4, AlbumID: 3},
-		{ID: 4, Name: "Knee Socks", Length: "4m17s", Number: 11, AlbumID: 3},
-		{ID: 5, Name: "Four Out Of Five", Length: "5m12s", Number: 6, AlbumID: 4},
-		{ID: 6, Name: "Californication", Length: "5m21s", Number: 6, AlbumID: 5},
-		{ID: 7, Name: "Stadium Arcadium", Length: "5m15s", Number: 4, AlbumID: 6},
-		{ID: 8, Name: "Go Robot", Length: "4m24s", Number: 7, AlbumID: 7},
-	}
-	db.Create(&songs)*/
+	//query.InsertIntoDb(db)
 
 	return nil
 }
@@ -56,13 +30,21 @@ func SetupRouter(r *gin.Engine, db *gorm.DB) {
 	r.LoadHTMLGlob("templates/**/*.html")
 	r.Use(connectDatabase(db))
 
-	//r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
 	r.GET("/albums_list", albumHandler.GetAlbums)
 	r.GET("/albums/:id", albumHandler.GetAlbumByID)
-	r.GET("/albums/:id/edit", albumHandler.EditAlbum)
-	r.GET("/albums/:id/delete", albumHandler.GetAlbumByID)
+	r.GET("/albums/:id/edit", albumHandler.GetEditAlbum)
+	r.GET("/albums/add", albumHandler.GetCreateAlbum)
+	r.GET("/albums/:id/delete", albumHandler.DeleteAlbum)
+	r.POST("/albums/:id/edit", albumHandler.PostEditAlbum)
+	r.POST("/albums/add", albumHandler.PostCreateAlbum)
+
 	r.GET("/artists/:id", artistHandler.GetArtistByID)
+	r.GET("/artists/:id/edit", artistHandler.GetEditArtist)
+	r.GET("/artists/add", artistHandler.GetCreateArtist)
+	r.GET("/artists/:id/delete", artistHandler.DeleteArtist)
+	r.POST("/artists/:id/edit", artistHandler.PostEditArtist)
+	r.POST("/artists/add", artistHandler.PostCreateArtist)
+
 	r.GET("/items/new", itemNewGetHandler)
 	r.POST("/albums/new", albumNewPostHandler)
 	r.GET("/exp", exp)
@@ -143,7 +125,7 @@ func itemNewGetHandler(c *gin.Context) {
 }
 
 func albumNewGetHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "albums/new.html", gin.H{})
+	c.HTML(http.StatusOK, "albums/newArtist.html", gin.H{})
 }
 
 // postAlbums godoc

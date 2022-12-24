@@ -1,4 +1,4 @@
-{{ define "base/headerArtist.html" }}
+{{ define "base/headerItem.html" }}
 <!DOCTYPE html>
 <html class="h-100" lang="ru">
 <head>
@@ -21,9 +21,11 @@
 
     <ul class="nav nav-pills">
       <li class="nav-item"><a class="nav-link active">Управление:</a></li>
-      <li class="nav-item"><a href="{{.item}}/{{.ID}}/edit" class="nav-link">Изменить</a></li>
-      <li class="nav-item"><a href="{{.item}}/{{.ID}}/delete" class="nav-link">Удалить</a></li>
+      <li class="nav-item"><a href="/{{.item}}/{{.ID}}/edit" class="nav-link">Изменить</a></li>
+      <li class="nav-item"><a href="/" class="nav-link" onclick="delItem()" >Удалить</a></li>
     </ul>
+    <a href="/{{.item}}/{{.ID}}/delete" id="delLink"></a>
+    <script src="../../static/js/delScript.js"></script>
   </header>
 </div>
 

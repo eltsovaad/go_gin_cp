@@ -1,5 +1,5 @@
 {{ define "albums/album.html" }}
-{{ template "base/headerArtist.html" . }}
+{{ template "base/headerItem.html" . }}
 <body>
 <!-- partial:index.partial.html -->
 <div class="bg-white text-gray-800 p-10">
@@ -24,7 +24,11 @@
         <div class="mt-10">
             <!-- song list header -->
             <div class="flex text-gray-600">
-                <div class="p-2 w-20"></div>
+                <div class="p-2 w-20">
+                    <a href="/albums/{{.album.ID}}/songs/add">
+                        <img src="../../static/images/add.png">
+                    </a>
+                </div>
                 <div class="p-2 w-16 "></div>
                 <div class="p-2 w-8 flex-shrink-0">№</div>
                 <div class="p-2 w-full">Название</div>
@@ -36,18 +40,14 @@
 
             <div class="flex border-b border-gray-800 hover:bg-gray-300">
                 <div class="p-3 w-15 ">
-                    <form action="/albums/{{.AlbumID}}/songs/{{.ID}}/edit" method="get">
-                        <button type="submit">
-                            <img src="../../static/images/editing.png"/>
-                        </button>
-                    </form>
+                    <a href="/albums/{{.AlbumID}}/songs/{{.ID}}/edit">
+                        <img src="../../static/images/editing.png">
+                    </a>
                 </div>
                 <div class="p-3 w-15">
-                    <form action="/albums/{{.AlbumID}}/songs/{{.ID}}/delete" method="get">
-                        <button type="submit">
-                            <img src="../../static/images/delete.png"/>
-                        </button>
-                    </form>
+                    <a href="/albums/{{.AlbumID}}/songs/{{.ID}}/delete">
+                        <img src="../../static/images/delete.png">
+                    </a>
                 </div>
                 <div class="p-3 w-8 flex-shrink-0">{{.Number}}️</div>
                 <div class="p-3 w-full">{{.Name}}</div>

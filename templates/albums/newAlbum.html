@@ -1,0 +1,53 @@
+{{ define "albums/newAlbum.html" }}
+{{ template "base/superHeader.html" . }}
+
+
+
+<div class="container ">
+  <div class="row flex-lg-row-reverse align-items-left g-5 py-5">
+    <h4 class="display-6 fw-bold lh-10 mb-24">{{.pageName}}</h4>
+  </div>
+  <div class="col-md-8 col-lg-8 mt-12 ">
+    <div class="row g-3">
+      <div class="col-sm-8 {{.answerClass}}">
+        <h3>{{.answer}}</h3>
+        <p>{{.error}}</p>
+      </div>
+    </div>
+    <form action="{{.formAction}}" method="POST">
+      <div class="row g-3">
+        <div class="col-md-12">
+          <label for="ArtistID" class="form-label">Исполнитель</label>
+          <select name="ArtistID" id="ArtistID" class="form-select" required>
+            <option value="{{.first.ID}}">{{.first.ArtistName}}</option>
+            {{ range.artists }}
+            <option value="{{.ID}}">{{.ArtistName}}</option>
+            {{end}}
+          </select>
+        </div>
+        <div class="col-sm-7">
+          <label for="Name" class="form-label">Название</label>
+          <input type="text" class="form-control" name="Name" id="Name" placeholder="" value="{{.album.Name}}" required>
+        </div>
+
+        <div class="col-sm-5">
+          <label for="Rating" class="form-label">Оценка</label>
+          <input type="text" class="form-control" name="Rating" id="Rating" placeholder="" value="{{.album.Rating}}">
+        </div>
+        <div class="col-sm-12">
+          <label for="ImagePath" class="form-label">Путь к изображению</label>
+          <input type="text" class="form-control" name="ImagePath" id="ImagePath" placeholder="" value="{{.album.ImagePath}}">
+        </div>
+        <div class="col-sm-4">
+          <br>
+          <button class="w-50 btn btn-primary btn-lg" type="submit">Сохранить</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+{{ template "base/footer.html" . }}
+{{ end }}
